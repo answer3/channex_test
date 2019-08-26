@@ -1,0 +1,55 @@
+body{
+    background-color: #ECEFF3 !important;
+}
+.form-signin, .form-header, .bottom-links{
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    background-color: white;
+}
+.form-signin{
+    padding: 20px;
+}
+.form-header{
+    border-bottom: 2px solid #ECEFF3;
+    padding: 15px;
+}
+.form-header p{
+    text-align: left;
+    margin-bottom: 0;
+    font-size: 1rem;
+}
+.form-signin input, .form-signin button[type="submit"] {
+    padding:5px 10px;
+    font-family: FontAwesome, "Open Sans", Verdana, sans-serif !important;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    font-size: 0.8rem;
+}
+.form-signin input{
+    margin-top: 1.5rem;
+    height: calc(1.2em + .75rem + 2px);
+}
+.form-signin #email{
+    margin-top: 0 !important;
+}
+.bottom-links{
+    font-size: 0.7rem;
+    padding: 0 20px 2rem 20px;
+}
+.bottom-links #signin-link{
+    float: left;
+}
+.bottom-links #forgot-password{
+    float: right;
+}
+.error-message{
+    margin: 0;
+    font-size: 0.6rem;
+    color:red;
+    text-align: left;
+}
+.form-control.input-error{
+    border-color: red;
+}
