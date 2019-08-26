@@ -25,7 +25,7 @@ class Signup extends Component {
     }
 
     handleInput = (e) => {
-        let fields = this.state.fields;
+        let fields = Object.assign({}, this.state.fields);
         fields[e.target.name] = e.target.value;
         this.setState({fields});
     }
@@ -37,17 +37,17 @@ class Signup extends Component {
     }
 
     setValidationState = (isValid, errors) => {
-        let formState = this.state;
+        let formState = Object.assign({}, this.state);
         formState.formValid = isValid;
         formState.formErrors = !isValid ? errors : defaultFormErrors
         this.setState(formState);
     }
 
     setRequestErrors = (responseDetails) => {
-        let errors = {};
-        Object.keys(responseDetails).map((field, index) => {
-            errors = Object.assign({[field]:responseDetails[field].join(', ')}, errors)
-        })
+        const errors = Object.keys(responseDetails).reduce((previous, key) => {
+            previous = Object.assign({[key]:responseDetails[key].join('. ')}, previous);
+            return previous;
+        }, {});
         this.setValidationState(false, errors)
     }
 
@@ -92,16 +92,15 @@ class Signup extends Component {
     }
 
     validate = () => {
-        let errors = {};
         const inputs = this.state.fields;
-        Object.keys(inputs).map((field, index) => {
-            const value = inputs[field]
-            errors = !this.validateField(field, value)
-                ? Object.assign({[field]:FormInvalidMsg[field]}, errors)
-                : Object.assign({}, errors)
-        });
+        let errors = Object.keys(inputs).reduce((previous, key) => {
+            previous = !this.validateField(key, inputs[key])
+                ? Object.assign({[key]:FormInvalidMsg[key]}, previous)
+                : Object.assign({}, previous)
+            return previous;
+        }, {});
         errors = !this.confirmPassword(inputs.password, inputs.password_confirmation)
-            ? Object.assign({password_confirmation: FormInvalidMsg.password_confirmation})
+            ? Object.assign({password_confirmation: FormInvalidMsg.password_confirmation}, errors)
             : Object.assign({}, errors)
         return errors
     }
